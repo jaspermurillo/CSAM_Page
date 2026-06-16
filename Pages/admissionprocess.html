@@ -1,0 +1,171 @@
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+   <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: transparent !important;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 60px;
+      color: #ffffff;
+    }
+
+    .timeline-wrapper {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .timeline-track {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background-color: #333;
+      z-index: 0;
+    }
+
+    .timeline-row {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-bottom: 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-event {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      height: 360px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      overflow: hidden;
+      margin: 20px;
+    }
+
+    .timeline-event .event-icon {
+      font-size: 32px;
+      color: #4a90e2;
+      margin-bottom: 10px;
+    }
+
+    .event-date {
+      font-weight: bold;
+      color: #4a90e2;
+      margin-bottom: 8px;
+    }
+
+    .event-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .timeline-event p {
+      font-size: 14px;
+      line-height: 1.4;
+      margin: 0;
+      overflow-y: auto;
+      flex-grow: 1;
+      padding-right: 4px;
+    }
+
+    .timeline-event p::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .timeline-event p::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 1000px) {
+      .timeline-row {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 60px;
+      }
+
+      .timeline-event {
+        margin: 20px 0;
+        width: 90%;
+        height: auto;
+      }
+
+      .timeline-track {
+        display: none;
+      }
+    }
+  </style>
+
+
+
+  <h1>Admission Process</h1>
+
+  <div class="timeline-wrapper">
+    <div class="timeline-track"></div>
+
+    <!-- Top Row -->
+    <div class="timeline-row">
+      <div class="timeline-event">
+        <div class="event-icon">📝</div>
+        <div class="event-date">Step 1 </div>
+        <div class="event-title">Account Registration</div>
+        <p>Create an account on our portal to start the application process. </p>
+      </div>
+
+      <div class="timeline-event">
+        <div class="event-icon">📤</div>
+        <div class="event-date">Step 2</div>
+        <div class="event-title">Form Responses & Document Submission</div>
+        <p>Fill out the application form and upload necessary documents for review. </p>
+      </div>
+
+      <div class="timeline-event">
+        <div class="event-icon">💳</div>
+        <div class="event-date">Step 3</div>
+        <div class="event-title">Payment of Admission Fee</div>
+        <p>Complete the admission fee payment and schedule your placement test. </p>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="timeline-row">
+      <div class="timeline-event">
+        <div class="event-icon">🗓️</div>
+        <div class="event-date">Step 4</div>
+        <div class="event-title">Screening/Placement Test</div>
+        <p>Attend the scheduled screening test to assess your skills and readiness</p>
+      </div>
+
+      <div class="timeline-event">
+        <div class="event-icon">📬</div>
+        <div class="event-date">Step 5</div>
+        <div class="event-title">Application Status</div>
+        <p>Check your application status online for updates and further instructions. <b>Note:</b> Special learning needs assessment is available upon request.</p>
+      </div>
+
+      <div class="timeline-event">
+        <div class="event-icon">📎</div>
+        <div class="event-date">Step 6</div>
+        <div class="event-title">Enrollment</div>
+        <p>Proceed to Registrar's office</p>
+      </div>
+    </div>
+  </div>
+
+

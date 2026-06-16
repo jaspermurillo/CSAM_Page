@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSA Web Components — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red: #8B1A1A;
+      --red-dark: #5c1010;
+      --gold: #d4af37;
+      --gold-light: #f5e090;
+      --cream: #fdf8f0;
+      --bg: #0f0a0a;
+      --bg2: #1a1010;
+      --bg3: #221515;
+      --text: #f5ede0;
+      --text-muted: #b8a89a;
+      --border: rgba(212,175,55,0.18);
+      --card-bg: rgba(255,255,255,0.04);
+      --card-hover: rgba(212,175,55,0.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      padding: 80px 40px 60px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .header-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,26,26,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(212,175,55,0.4);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    header h1 span {
+      color: var(--gold);
+    }
+
+    header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .csa-seal {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      margin: 0 auto 28px;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      padding: 32px 40px 8px;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 7px 18px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #1a0a0a;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      padding: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212,175,55,0.45);
+      background: var(--card-hover);
+    }
+
+    .card-preview {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-preview iframe {
+      width: 200%;
+      height: 200%;
+      transform: scale(0.5);
+      transform-origin: top left;
+      border: none;
+      pointer-events: none;
+    }
+
+    .card-preview .preview-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(15,10,10,0.5) 100%);
+    }
+
+    .card-type {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      backdrop-filter: blur(8px);
+    }
+
+    .tag-carousel { background: rgba(139,26,26,0.8); color: var(--gold-light); border: 1px solid rgba(212,175,55,0.3); }
+    .tag-timeline { background: rgba(20,60,40,0.85); color: #8ff5c0; border: 1px solid rgba(100,220,160,0.3); }
+    .tag-gallery { background: rgba(30,30,100,0.85); color: #a0b8ff; border: 1px solid rgba(100,140,255,0.3); }
+    .tag-flipcard { background: rgba(80,30,80,0.85); color: #e8a0ff; border: 1px solid rgba(200,100,255,0.3); }
+    .tag-countdown { background: rgba(100,60,10,0.85); color: #ffd080; border: 1px solid rgba(255,180,50,0.3); }
+    .tag-orgchart { background: rgba(10,50,80,0.85); color: #80d8ff; border: 1px solid rgba(50,180,255,0.3); }
+    .tag-video { background: rgba(60,10,10,0.85); color: #ffaaaa; border: 1px solid rgba(255,100,100,0.3); }
+
+    .card-body {
+      padding: 20px 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tech-tag {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .card-footer {
+      display: flex;
+      gap: 10px;
+      padding: 0 22px 20px;
+    }
+
+    .btn-preview, .btn-code {
+      flex: 1;
+      padding: 9px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-preview {
+      background: var(--red);
+      color: var(--gold-light);
+      border: 1px solid rgba(212,175,55,0.2);
+    }
+
+    .btn-preview:hover { background: #a02020; }
+
+    .btn-code {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-code:hover {
+      background: rgba(212,175,55,0.1);
+      border-color: rgba(212,175,55,0.4);
+      color: var(--gold);
+    }
+
+    /* ── CODE PANEL (sidebar drawer) ── */
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 100;
+      backdrop-filter: blur(4px);
+    }
+
+    .drawer-overlay.open { display: flex; justify-content: flex-end; }
+
+    .drawer {
+      width: min(720px, 95vw);
+      height: 100vh;
+      background: #0d0808;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      animation: slideIn 0.28s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .drawer-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      color: var(--gold);
+    }
+
+    .drawer-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-copy-code {
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-copy-code:hover { color: var(--gold); border-color: rgba(212,175,55,0.4); }
+    .btn-copy-code.copied { color: #8ff5c0; border-color: rgba(100,220,160,0.4); }
+
+    .drawer-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .drawer-close:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+    .drawer-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .drawer-tab {
+      padding: 12px 24px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .drawer-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .drawer-tab-content {
+      flex: 1;
+      overflow: hidden;
+      display: none;
+    }
+
+    .drawer-tab-content.active { display: flex; flex-direction: column; }
+
+    /* Live preview pane */
+    .preview-iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      background: #fff;
+    }
+
+    /* Code pane */
+    .code-scroll {
+      flex: 1;
+      overflow: auto;
+      padding: 24px;
+    }
+
+    pre {
+      font-family: 'Courier New', monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #d4d4d4;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* syntax highlight classes */
+    .hl-tag { color: #569cd6; }
+    .hl-attr { color: #9cdcfe; }
+    .hl-val { color: #ce9178; }
+    .hl-comment { color: #6a9955; font-style: italic; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 60px 40px 40px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    footer strong { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 60px 20px 40px; }
+      .grid { padding: 20px; gap: 16px; }
+      .filter-bar { padding: 20px 20px 0; }
+      .drawer { width: 100vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-bg"></div>
+  <img class="csa-seal" src="https://csa.edu.ph/wp-content/uploads/2021/07/CSA-Circle-Seal.png" alt="CSA Seal" onerror="this.style.display='none'"/>
+  <div class="header-tag">Web Components Portfolio</div>
+  <h1>Colegio San Agustín <span>Makati</span></h1>
+  <p>A collection of custom HTML widgets built for the CSA website — carousels, countdowns, galleries, flip cards, and more. Click any card to preview or view source code.</p>
+</header>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+  <button class="filter-btn" onclick="filterCards('carousel', this)">Carousel</button>
+  <button class="filter-btn" onclick="filterCards('gallery', this)">Gallery</button>
+  <button class="filter-btn" onclick="filterCards('flipcard', this)">Flip Cards</button>
+  <button class="filter-btn" onclick="filterCards('countdown', this)">Countdown</button>
+  <button class="filter-btn" onclick="filterCards('timeline', this)">Timeline</button>
+  <button class="filter-btn" onclick="filterCards('orgchart', this)">Org Chart</button>
+  <button class="filter-btn" onclick="filterCards('video', this)">Video</button>
+</div>
+
+<!-- CARD GRID -->
+<div class="grid" id="cardGrid">
+
+  <!-- 1. Hero Carousel -->
+  <div class="card" data-category="carousel">
+    <div class="card-preview">
+      <iframe src="Pages/csa_jobs_06122026.html" loading="lazy" title="Hero Carousel"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-carousel">Carousel</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Hero Image Carousel</div>
+      <div class="card-desc">Full-width image slideshow with navigation arrows, dot indicators, auto-play, swipe support, and call-to-action overlays.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Auto-play</span>
+        <span class="tech-tag">Touch swipe</span>
+        <span class="tech-tag">CTA buttons</span>
+        <span class="tech-tag">Responsive</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="csa_jobs_06122026.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/csa_jobs_06122026.html', 'Hero Image Carousel')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 2. Admissions Page -->
+  <div class="card" data-category="timeline">
+    <div class="card-preview">
+      <iframe src="Pages/admissions03122026.html" loading="lazy" title="Admissions Page"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-timeline">Full Page</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Admissions Landing Page</div>
+      <div class="card-desc">Complete admissions page with hero banner, animated sections, registration CTA, and multi-step enrollment guide.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Scroll animations</span>
+        <span class="tech-tag">CTA sections</span>
+        <span class="tech-tag">Full page</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/admissions03122026.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/admissions03122026.html', 'Admissions Landing Page')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 3. Admission Process Timeline -->
+  <div class="card" data-category="timeline">
+    <div class="card-preview">
+      <iframe src="Pages/admissionprocess.html" loading="lazy" title="Admission Process"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-timeline">Timeline</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Admission Process Timeline</div>
+      <div class="card-desc">6-step visual timeline showing the admission process from registration to enrollment, with icons and scrollable card descriptions.</div>
+      <div class="card-tags">
+        <span class="tech-tag">6-step flow</span>
+        <span class="tech-tag">Icon cards</span>
+        <span class="tech-tag">Responsive grid</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/admissionprocess.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('admissionprocess.html', 'Admission Process Timeline')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 4. Admissions Video Portrait -->
+  <div class="card" data-category="video">
+    <div class="card-preview">
+      <iframe src="Pages/admissionsvd_portrait.html" loading="lazy" title="Admissions Video"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-video">Video</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Admissions Video Embed</div>
+      <div class="card-desc">Auto-playing, muted, looping video embed for the admissions "Why CSA?" promotional video with volume control.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Autoplay</span>
+        <span class="tech-tag">Muted loop</span>
+        <span class="tech-tag">Volume control</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/admissionsvd_portrait.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/admissionsvd_portrait.html', 'Admissions Video Embed')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 5. CSA Programs Flip Cards (Paragraph style) -->
+  <div class="card" data-category="flipcard">
+    <div class="card-preview">
+      <iframe src="Pages/csaprograms_para.html" loading="lazy" title="CSA Programs Para"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-flipcard">Flip Cards</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">CSA Programs — Hover Flip</div>
+      <div class="card-desc">Photo-backed flip cards for ECE, Grade School, JHS, and SHS programs. Hovering flips each card to reveal program descriptions.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Hover flip</span>
+        <span class="tech-tag">Photo backgrounds</span>
+        <span class="tech-tag">4 programs</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/csaprograms_para.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/csaprograms_para.html', 'CSA Programs — Hover Flip')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 6. CSA Programs Flip Tiles -->
+  <div class="card" data-category="flipcard">
+    <div class="card-preview">
+      <iframe src="Pages/csaprogflipcard.html" loading="lazy" title="CSA Programs Flip Tiles"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-flipcard">Flip Cards</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">CSA Programs — Click Flip Tiles</div>
+      <div class="card-desc">Animated CSA-branded flip tiles in red and gold. Clicking each tile flips it to reveal the program description with fade-in entrance animation.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Click flip</span>
+        <span class="tech-tag">CSA branding</span>
+        <span class="tech-tag">Pulse animation</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/csaprogflipcard.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/csaprogflipcard.html', 'CSA Programs — Click Flip Tiles')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 7. Countdown + Stats -->
+  <div class="card" data-category="countdown">
+    <div class="card-preview">
+      <iframe src="Pages/admission,_orientation_countdowntimer.html" loading="lazy" title="Countdown Timer"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-countdown">Countdown</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">School Year Countdown + Stats</div>
+      <div class="card-desc">Three live countdown timers for first-day-of-school dates, a scroll-triggered slot-machine stats strip, lightbox image gallery, and image reveal animations.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Live timers</span>
+        <span class="tech-tag">Slot machine</span>
+        <span class="tech-tag">Lightbox</span>
+        <span class="tech-tag">Scroll reveal</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/admission,_orientation_countdowntimer.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/admission,_orientation_countdowntimer.html', 'School Year Countdown + Stats')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 8. Admission Timer -->
+  <div class="card" data-category="countdown">
+    <div class="card-preview">
+      <iframe src="Pages/timer.html" loading="lazy" title="Admission Timer"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-countdown">Countdown</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Admissions Opening Countdown</div>
+      <div class="card-desc">Branded countdown timer to the admissions portal opening date. Days, hours, minutes, and seconds in CSA red-and-gold boxes.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Real-time</span>
+        <span class="tech-tag">CSA branding</span>
+        <span class="tech-tag">Responsive</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/timer.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/timer.html', 'Admissions Opening Countdown')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 9. Org Chart -->
+  <div class="card" data-category="orgchart">
+    <div class="card-preview">
+      <iframe src="Pages/orgchart.html" loading="lazy" title="Org Chart"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-orgchart">Org Chart</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Registrar's Office Org Chart</div>
+      <div class="card-desc">Hierarchical organization chart for the Registrar's office with profile photos, names, and roles. Hover zoom effect on each person card.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Profile photos</span>
+        <span class="tech-tag">Hover zoom</span>
+        <span class="tech-tag">Hierarchy</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/orgchart.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/orgchart.html', "Registrar's Office Org Chart")">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 10. Photo Gallery Horizontal -->
+  <div class="card" data-category="gallery">
+    <div class="card-preview">
+      <iframe src="Pages/photoGallery_hori.html" loading="lazy" title="Horizontal Photo Gallery"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-gallery">Gallery</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Photo Gallery — Horizontal Carousel</div>
+      <div class="card-desc">Auto-scrolling horizontal photo carousel showing 4 images at a time, with smooth sliding transitions between batches every 4 seconds.</div>
+      <div class="card-tags">
+        <span class="tech-tag">4-up view</span>
+        <span class="tech-tag">Auto-scroll</span>
+        <span class="tech-tag">Dark theme</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/photoGallery_hori.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/photoGallery_hori.html', 'Photo Gallery — Horizontal Carousel')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 11. Photo Gallery Paragraph -->
+  <div class="card" data-category="gallery">
+    <div class="card-preview">
+      <iframe src="Pages/photogallery_para.html" loading="lazy" title="Photo Gallery Para"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-gallery">Gallery</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Photo Gallery — Lightbox Grid</div>
+      <div class="card-desc">Editorial photo gallery for a school event with a descriptive paragraph, responsive image grid, and click-to-enlarge lightbox for each photo.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Lightbox</span>
+        <span class="tech-tag">Grid layout</span>
+        <span class="tech-tag">Event coverage</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/photogallery_para.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/photogallery_para.html', 'Photo Gallery — Lightbox Grid')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+  <!-- 12. Admissions Video (landscape) -->
+  <div class="card" data-category="video">
+    <div class="card-preview">
+      <iframe src="Pages/admissionvid.html" loading="lazy" title="Admissions Video Landscape"></iframe>
+      <div class="preview-overlay"></div>
+      <span class="card-type tag-video">Video</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Admissions Video — Landscape</div>
+      <div class="card-desc">Landscape-oriented version of the admissions promotional video embed with auto-play, mute, and loop settings.</div>
+      <div class="card-tags">
+        <span class="tech-tag">Autoplay</span>
+        <span class="tech-tag">Landscape</span>
+        <span class="tech-tag">Full width</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn-preview" href="Pages/admissionvid.html" target="_blank">↗ Preview</a>
+      <button class="btn-code" onclick="openDrawer('Pages/admissionvid.html', 'Admissions Video — Landscape')">&#60;/&#62; Code</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built for <strong>Colegio San Agustín Makati</strong> &nbsp;·&nbsp; Custom HTML/CSS/JS Components &nbsp;·&nbsp; <strong>Virtue and Science</strong></p>
+</footer>
+
+<!-- CODE DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="handleOverlayClick(event)">
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <h3 id="drawerTitle">Component Code</h3>
+      <div class="drawer-actions">
+        <button class="btn-copy-code" id="copyBtn" onclick="copyCode()">Copy code</button>
+        <button class="drawer-close" onclick="closeDrawer()">✕</button>
+      </div>
+    </div>
+    <div class="drawer-tabs">
+      <button class="drawer-tab active" onclick="switchTab('preview')">Live preview</button>
+      <button class="drawer-tab" onclick="switchTab('code')">Source code</button>
+    </div>
+    <div class="drawer-tab-content active" id="tab-preview">
+      <iframe class="preview-iframe" id="previewIframe" src="" title="Component Preview"></iframe>
+    </div>
+    <div class="drawer-tab-content" id="tab-code">
+      <div class="code-scroll">
+        <pre id="codeBlock"></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentCode = '';
+
+  function filterCards(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.card').forEach(card => {
+      if (cat === 'all' || card.dataset.category === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  async function openDrawer(file, title) {
+    document.getElementById('drawerTitle').textContent = title;
+    document.getElementById('previewIframe').src = file;
+    document.getElementById('codeBlock').textContent = 'Loading…';
+    currentCode = '';
+
+    document.getElementById('drawerOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    switchTab('preview');
+
+    try {
+      const res = await fetch(file);
+      const text = await res.text();
+      currentCode = text;
+      document.getElementById('codeBlock').textContent = text;
+    } catch(e) {
+      document.getElementById('codeBlock').textContent = '/* Could not load source — make sure all HTML files are in the same folder as index.html */';
+    }
+  }
+
+  function closeDrawer() {
+    document.getElementById('drawerOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    document.getElementById('previewIframe').src = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('drawerOverlay')) closeDrawer();
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.drawer-tab').forEach((t, i) => {
+      t.classList.toggle('active', (i === 0 && tab === 'preview') || (i === 1 && tab === 'code'));
+    });
+    document.querySelectorAll('.drawer-tab-content').forEach((c, i) => {
+      c.classList.toggle('active', (i === 0 && tab === 'preview') || (i === 1 && tab === 'code'));
+    });
+  }
+
+  async function copyCode() {
+    if (!currentCode) return;
+    try {
+      await navigator.clipboard.writeText(currentCode);
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy code';
+        btn.classList.remove('copied');
+      }, 2000);
+    } catch(e) {
+      alert('Could not copy — please select the code manually.');
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeDrawer();
+  });
+</script>
+
+</body>
+</html>

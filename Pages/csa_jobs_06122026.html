@@ -1,0 +1,279 @@
+<!-- Ensure viewport is set -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Carousel Container -->
+<div class="carousel-container">
+  <!-- Carousel Slides -->
+  <div id="carousel" class="carousel-track">
+
+ <!-- Slide 0 -->
+    <div class="slide">
+      <img src="https://csa.edu.ph/wp-content/uploads/2026/02/att.bolOiIGuHEXlQogeZpT2bkiECbn9x1kHgAl0ZsXwzlw.jpeg" alt="Slide "0" loading="lazy" />
+    </div>
+
+    <!-- Slide 1 -->
+    <div class="slide">
+      <img src="https://csa.edu.ph/wp-content/uploads/2025/10/Teaser.png" alt="Slide 1" loading="lazy" />
+    </div>
+    
+    <!-- Slide 2 with Two Rounded Buttons -->
+     <div class="slide first-slide">
+      <a href="https://portal.csa.edu.ph/auth"><img src="https://csa.edu.ph/wp-content/uploads/2025/12/JPEG-image-4E66-9836-93-0.jpeg" alt="Slide 2" loading="lazy" /></a>
+      <div class="slide-btn-group">
+       <!--  <a href="https://csa.edu.ph/wp-content/uploads/2025/05/Enrollment-Process-OLD-AY2526.png" class="slide-btn"><b>Old Student</b></a>
+        <a href="https://csa.edu.ph/wp-content/uploads/2025/05/Enrollment-Process-NEW-AY2526.png" class="slide-btn secondary"><b>New Student</b></a>-->
+      </div>
+    </div> 
+
+    <!-- Slide 3 -->
+    <div class="slide">
+      <img src="https://csa.edu.ph/wp-content/uploads/2025/01/Slider-image-with-mass-1.png" alt="Slide 3" loading="lazy" />
+    </div>
+
+    <!-- Slide 4 with CTA -->
+    <div class="slide has-button">
+      <img src="https://csa.edu.ph/wp-content/uploads/2025/05/Be-an-Augustinian-carousel.png" alt="Slide 4" loading="lazy" />
+      <a href="https://csa.edu.ph/admissions-official" class="cta-btn">Go to Admissions</a>
+    </div>
+  <!-- Slide 5 with CTA -->
+<div class="slide slide-4">
+  <img src="https://csa.edu.ph/wp-content/uploads/2025/05/Virtual-Tour-carousel-1-1.png" alt="Slide 5" loading="lazy" />
+  <a href="https://csa.edu.ph/virtual-tour/" class="slide-btn bottom-right">Go to Virtual Tour</a>
+</div>
+ <!-- Slide 6 with CTA -->
+<div class="slide slide-4">
+  <img src="https://csa.edu.ph/wp-content/uploads/2025/06/Pope-Leo-Carousel.png" alt="Slide 6" loading="lazy" />
+  
+</div>
+
+ </div>
+  <!-- Navigation Arrows -->
+  <button class="nav-btn" style="left: 10px; font-size:63px;" onclick="moveSlide(-1)">&#8249</button>
+  <button class="nav-btn" style="right: 10px; font-size:63px;" onclick="moveSlide(1)">&#8250</button>
+
+  <!-- Indicators -->
+  <div class="indicators">
+    <span class="indicator" onclick="goToSlide(0)"></span>
+   <!-- <span class="indicator" onclick="goToSlide(1)"></span>-->
+    <span class="indicator" onclick="goToSlide(2)"></span>
+    <span class="indicator" onclick="goToSlide(3)"></span>
+    <span class="indicator" onclick="goToSlide(4)"></span>
+    <span class="indicator" onclick="goToSlide(6)"></span>
+  </div>
+</div>
+
+<!-- Carousel Styles -->
+<style>
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    margin: auto;
+    overflow: hidden;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .slide {
+    flex-shrink: 0;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slide img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+    object-fit: contain;
+  }
+
+  /* Rounded Buttons Group for First Slide */
+  .slide-btn-group {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .slide-btn {
+    background-color: #F28705;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .slide-btn:hover {
+    background-color: #333;
+  }
+
+  .slide-btn.secondary {
+    background-color: #F28705;
+  }
+
+  .slide-btn.secondary:hover {
+    background-color: #333;
+  }
+
+  /* CTA on Slide 3 */
+  .has-button .cta-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff ;
+    color: #333;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 999px;
+    text-decoration: none;
+  }
+/* Positioning the button on Slide 4 at the lower right */
+.slide-4 .bottom-right {
+  position: absolute;
+  bottom: 30px;  /* Adjust this value as needed */
+  right: 30px;   /* Adjust this value as needed */
+  background-color: #F28705;
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.slide-4 .bottom-right:hover {
+  background-color: #333;
+}
+
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    color: white;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .nav-btn.left { left: 10px; }
+  .nav-btn.right { right: 10px; }
+
+  .indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+  }
+
+  .indicator {
+    width: 15px;
+    height: 15px;
+    background: #a1a1a1;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .slide img { height: auto; }
+    .slide-btn-group {
+      flex-direction: column;
+      gap: 8px;
+    }
+    .slide-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .slide img { height: auto; }
+    .indicator {
+      width: 10px;
+      height: 10px;
+    }
+    .cta-btn {
+      font-size: 14px;
+      padding: 10px 20px;
+    }
+  }
+</style>
+
+<!-- Carousel Script -->
+<script>
+  let currentIndex = 0;
+  const interval = 6000;
+  let autoPlayInterval;
+  const carousel = document.getElementById('carousel');
+  const indicators = document.querySelectorAll('.indicator');
+
+  function moveSlide(dir) {
+    const slides = document.querySelectorAll('#carousel > .slide');
+    currentIndex = (currentIndex + dir + slides.length) % slides.length;
+    carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateIndicators();
+  }
+
+  function goToSlide(index) {
+    currentIndex = index;
+    carousel.style.transform = `translateX(-${index * 100}%)`;
+    updateIndicators();
+  }
+
+  function updateIndicators() {
+    indicators.forEach((el, i) => {
+      el.style.backgroundColor = i === currentIndex ? '#d4af37' : '#fff';
+    });
+  }
+
+  function observeCarousel() {
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) startAutoPlay();
+      else stopAutoPlay();
+    }, { threshold: 0.5 });
+    observer.observe(document.querySelector('.carousel-container'));
+  }
+
+  function startAutoPlay() {
+    if (!autoPlayInterval) {
+      autoPlayInterval = setInterval(() => moveSlide(1), interval);
+    }
+  }
+
+  function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+    autoPlayInterval = null;
+  }
+
+  // Swipe Support
+  let startX = 0;
+  carousel.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+  carousel.addEventListener('touchend', e => {
+    const endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) moveSlide(1);
+    else if (endX - startX > 50) moveSlide(-1);
+  });
+
+  window.onload = () => {
+    updateIndicators();
+    observeCarousel();
+  };
+</script>

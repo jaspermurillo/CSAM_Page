@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSA Flip Tiles</title>
+
+  <style>
+    /* Center content vertically and horizontally with a clean background */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f4f8;
+      font-family: 'Century Gothic', sans-serif;
+      padding: 20px;
+    }
+
+    /* Animation for soft pulsing (fade in/out) effect */
+    @keyframes fadeInOut {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    /* Apply the fade animation */
+    .tile.animate {
+      animation-name: fadeInOut;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    /* Grid container for 2x2 layout */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* Base tile styling with entry animation */
+    .tile {
+      perspective: 1000px;
+      height: 300px; /* Equal height for uniform layout */
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    /* Stagger the entry animation of each tile */
+    .tile:nth-child(1) { animation-delay: 0.3s; }
+    .tile:nth-child(2) { animation-delay: 0.6s; }
+    .tile:nth-child(3) { animation-delay: 0.9s; }
+    .tile:nth-child(4) { animation-delay: 1.2s; }
+
+    /* 3D Flip container */
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+    }
+
+    /* Flip transformation on tile click */
+    .tile.flipped .card {
+      transform: rotateY(180deg);
+    }
+
+    /* Shared styles for front and back faces of the card */
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      border: 2px solid #FFD700; /* CSA gold */
+      background-color: #A00000;  /* CSA red */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      color: #FFD700; /* CSA gold text */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    /* Back side gets different text styling and rotated */
+    .back {
+      transform: rotateY(180deg);
+      color: #fff9e6;
+      text-align: left;
+      font-size: 14.5px;
+      line-height: 1.5;
+    }
+
+    /* Icon styling inside tiles */
+    .icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    /* Title styling for tile labels */
+    .title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Entry fade-in animation */
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive fallback for smaller screens */
+    @media (max-width: 600px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Tile 1: Early Childhood Education -->
+    <div class="tile" onclick="flipCard(this)">
+      <div class="card">
+        <div class="front">
+          <span class="icon">👶</span>
+          <span class="title">Early Childhood Education (ECE)</span>
+        </div>
+        <div class="back">
+          The EARLY CHILDHOOD EDUCATION (ECE) unit of Colegio San Agustin Makati welcomes pupils from 2.5 to 5 years old. Our programs—Nursery, Junior Kinder, and Senior Kinder—provide developmentally appropriate activities that encourage exploration, creativity, collaboration, and fun.
+        </div>
+      </div>
+    </div>
+
+    <!-- Tile 2: Grade School -->
+    <div class="tile" onclick="flipCard(this)">
+      <div class="card">
+        <div class="front">
+          <span class="icon">📚</span>
+          <span class="title">Grade School</span>
+        </div>
+        <div class="back">
+          The Grade School Program is designed to provide the learners with a solid and well-rounded Christian doctrinal foundation and formation. The program also aims to lay the foundation for the Augustinians to become true servant leaders, instruments of salvation for others, and dedicated builders of the City of God.
+        </div>
+      </div>
+    </div>
+
+    <!-- Tile 3: Junior High School -->
+    <div class="tile" onclick="flipCard(this)">
+      <div class="card">
+        <div class="front">
+          <span class="icon">🎒</span>
+          <span class="title">Junior High School</span>
+        </div>
+        <div class="back">
+          The Junior High School (JHS) Program of CSA Makati is a PAASCU Level III accredited program for Grades 7 to 10. It equips Augustinian learners with competencies necessary for subsequent learning leading to Senior High School and forms them into Catholic servant-leaders in the tradition of Augustinian education.
+        </div>
+      </div>
+    </div>
+
+    <!-- Tile 4: Senior High School -->
+    <div class="tile" onclick="flipCard(this)">
+      <div class="card">
+        <div class="front">
+          <span class="icon">🏫</span>
+          <span class="title">Senior High School (SHS)</span>
+        </div>
+        <div class="back">
+          The SHS Program develops learners in character and academic excellence. Graduates are well-rounded Catholic servant-leaders who are college-ready and future-proof. The Academic Track offers pathways toward higher education and future careers.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to flip a tile on click
+    function flipCard(tile) {
+      tile.classList.toggle('flipped');
+    }
+
+    // Add a random animation to each tile for the fadeInOut loop
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => {
+      const delay = Math.random();             // 0–1s random delay
+      const duration = 1 + Math.random() * 2;  // 1–3s duration
+      tile.classList.add('animate');
+      tile.style.animationDelay = `${delay}s`;
+      tile.style.animationDuration = `${duration}s`;
+    });
+  </script>
+</body>
+</html>

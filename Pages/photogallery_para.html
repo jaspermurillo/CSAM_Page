@@ -1,0 +1,112 @@
+  <style>
+    .csa-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .csa-gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .csa-gallery img:hover {
+      transform: scale(1.03);
+    }
+    /* Lightbox */
+    .csa-lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+    }
+    .csa-lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .csa-lightbox:target {
+      display: flex;
+    }
+    .csa-lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+ 
+  <p>
+In celebration of the Feast of St. Nicholas of Tolentine (September 10), San Agustin HS students joined in a meaningful outreach at the Philippine General Hospital. Blessed bread was distributed to patients and hospital staff, a symbol of healing, hope, and the compassionate spirit of St. Nicholas.<br><br>
+St. Nicholas was a peacemaker, missionary and a gentle soul who was entrusted to feed the poor at the monastery gates in Tolentino.  In one of his longer fasts and in his weakened state,  he received a vision of Jesus, Mary and St. Augustine, and was told to eat some bread marked with a cross and dipped in water.  Having done so, he immediately got stronger. He started distributing these rolls to the sick while praying to Mary, often curing the ailing.  This is the origin of the Augustinian custom of blessing and distributing Saint Nicholas bread.  In the Philippines, San Nicholas cookie or Pan de San Nicholas is a Kapampangan delicacy originating since 1600s, baked in St. Nicholas' honor. <br><br>
+St. Nicholas of Tolentine is also known as the patron saint of the souls in purgatory and the sick. He was renowned for his deep compassion, humility, and miraculous healings which were often associated with the blessing and distribution of bread.<br><br>
+Through this simple yet heartfelt gesture, we honor his legacy and continue his mission of charity and service to those in need.
+St. Nicholas of Tolentine, pray for us. 
+#CSAMakati     #SanAgustin     #SanNicholasdeTolentino     #veritasunitascaritas     #augustiniansaint
+</p>
+  <!-- "Shortcode-like" placeholder -->
+  <div class="photo-gallery"></div>
+
+  <script>
+    // Inject gallery markup into placeholder
+    document.querySelectorAll('.photo-gallery').forEach((container, i) => {
+      container.innerHTML = `
+        <div class="csa-gallery">
+          <a href="#csa-lightbox1-${i}"><img src="https://csa.edu.ph/wp-content/uploads/2025/09/547785961_773643131954517_3418146148952137481_n.jpg" alt="Photo 1"></a>
+          <a href="#csa-lightbox2-${i}"><img src="https://csa.edu.ph/wp-content/uploads/2025/09/548137933_773643128621184_5631525897862398178_n.jpg" alt="Photo 2"></a>
+          <a href="#csa-lightbox3-${i}"><img src="https://csa.edu.ph/wp-content/uploads/2025/09/548896707_773643265287837_826920683667548219_n.jpg" alt="Photo 3"></a>
+          <a href="#csa-lightbox4-${i}"><img src="https://csa.edu.ph/wp-content/uploads/2025/09/548208093_773643275287836_661217216116006056_n.jpg" alt="Photo 4"></a>
+          <a href="#csa-lightbox2-${i}"><img src="https://csa.edu.ph/wp-content/uploads/2025/09/548202373_773643555287808_1850794954253719261_n.jpg" alt="Photo 5"></a>
+        </div>
+
+        <!-- Lightbox 1 -->
+        <div id="csa-lightbox1-${i}" class="csa-lightbox">
+          <a href="#" class="csa-lightbox-close">&times;</a>
+          <img src="https://csa.edu.ph/wp-content/uploads/2025/09/547785961_773643131954517_3418146148952137481_n.jpg" alt="Photo 1 Large">
+        </div>
+
+        <!-- Lightbox 2 -->
+        <div id="csa-lightbox2-${i}" class="csa-lightbox">
+          <a href="#" class="csa-lightbox-close">&times;</a>
+          <img src="https://csa.edu.ph/wp-content/uploads/2025/09/548137933_773643128621184_5631525897862398178_n.jpg" alt="Photo 2 Large">
+
+        <!-- Lightbox 3 -->
+        <div id="csa-lightbox3-${i}" class="csa-lightbox">
+          <a href="#" class="csa-lightbox-close">&times;</a>
+          <img src="https://csa.edu.ph/wp-content/uploads/2025/09/548896707_773643265287837_826920683667548219_n.jpg" alt="Photo 3 Large">
+
+        <!-- Lightbox 4 -->
+        <div id="csa-lightbox4-${i}" class="csa-lightbox">
+          <a href="#" class="csa-lightbox-close">&times;</a>
+          <img src="https://csa.edu.ph/wp-content/uploads/2025/09/548208093_773643275287836_661217216116006056_n.jpg" alt="Photo 4 Large">
+
+         <!-- Lightbox 5 -->
+        <div id="csa-lightbox5-${i}" class="csa-lightbox">
+          <a href="#" class="csa-lightbox-close">&times;</a>
+          <img src="https://csa.edu.ph/wp-content/uploads/2025/09/548202373_773643555287808_1850794954253719261_n.jpg" alt="Photo 5 Large">
+        </div>
+      `;
+    });
+  </script>
+
+
+
+
+

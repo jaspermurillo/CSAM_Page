@@ -1,0 +1,69 @@
+<div style="font-family: 'Century Gothic', Arial, sans-serif; 
+    text-align: center; 
+    background-color: #ffffff; 
+    /*background-image: url('https://csa.edu.ph/wp-content/uploads/2025/01/Jubi-2025-Countdown-Web-plain-1.png'); */
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    color: #b71c1c; 
+    margin: 0; 
+    padding: 20; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    width: 100%; 
+    min-height: 40vh; 
+    height: auto;">
+
+
+<h3>Mark your calendars! <br>On December 1, the doors to AY 2026–2027 officially open… <br>your future begins with a single application. <br><br><br><br>💫 The countdown starts NOW! </h3>
+    
+    <div id="timer" style="display: flex; justify-content: center; gap: 3%; margin-top: 20px; padding:20px;">
+        <div style="text-align: center;">
+            <div id="days" style="font-size: 3vw; font-weight: bold; padding: 30px 30px; border-radius: 15px; background-color: #b71c1c; color: #fff; border: 5px solid #d4af37; display: inline-block; text-align: center;">00</div>
+            <span style="font-size: 1vw; color: #000; margin-top: 5px; display: block;">Days</span>
+        </div>
+        <div style="text-align: center;">
+            <div id="hours" style="font-size: 3vw; font-weight: bold; padding: 30px 30px; border-radius: 15px; background-color: #b71c1c; color: #fff; border: 5px solid #d4af37; display: inline-block; text-align: center;">00</div>
+            <span style="font-size: 1vw; color: #000; margin-top: 5px; display: block;">Hours</span>
+        </div>
+        <div style="text-align: center;">
+            <div id="minutes" style="font-size: 3vw; font-weight: bold; padding: 30px 30px; border-radius: 15px; background-color: #b71c1c; color: #fff; border: 5px solid #d4af37; display: inline-block; text-align: center;">00</div>
+            <span style="font-size: 1vw; color: #000; margin-top: 5px; display: block;">Minutes</span>
+        </div>
+        <div style="text-align: center;">
+            <div id="seconds" style="font-size: 3vw; font-weight: bold; padding: 30px 30px; border-radius: 15px; background-color: #b71c1c; color: #fff; border: 5px solid #d4af37; display: inline-block; text-align: center;">00</div>
+            <span style="font-size: 1vw; color: #000; margin-top: 5px; display: block;">Seconds</span>
+        </div>
+    </div>
+</div>
+  <script>
+    function updateCountdown() {
+        // Target: December 1, 2025 at 8:00 AM local time
+        const targetDate = new Date(2025, 11, 1, 8, 0, 0).getTime(); 
+        // (Month is 0-based: 11 = December)
+
+        const now = new Date().getTime();
+        const timeLeft = targetDate - now;
+
+        if (timeLeft >= 0) {
+            const days = String(Math.floor(timeLeft / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            const hours = String(Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            const minutes = String(Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            const seconds = String(Math.floor((timeLeft % (1000 * 60)) / 1000)).padStart(2, '0');
+
+            document.getElementById('days').innerHTML = days;
+            document.getElementById('hours').innerHTML = hours;
+            document.getElementById('minutes').innerHTML = minutes;
+            document.getElementById('seconds').innerHTML = seconds;
+        } else {
+            document.getElementById('timer').innerHTML = "Time's up!";
+        }
+    }
+
+    // Update every second
+    setInterval(updateCountdown, 1000);
+</script>
+
+     </script>
+

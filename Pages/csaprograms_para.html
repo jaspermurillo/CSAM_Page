@@ -1,0 +1,343 @@
+<style>
+    /* Section background */
+    .section-wrapper {
+     
+  min-height: 300px;
+  height: auto;
+  padding: 40px 16px;
+}
+
+.hero-text {
+  color: #ffffff;
+  font-size: clamp(16px, 1.2vw + 0.8rem, 22px);
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+/* Emphasis for motto */
+.hero-text strong {
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+    /* Floating circles background */
+    .wave-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .wave-bg div {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: #F28705;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    /* floating animation */
+    @keyframes float {
+      0%   { transform: translateY(100vh) scale(0.5); opacity: 0.4; }
+      50%  { transform: translateY(50vh) scale(1); opacity: 0.7; }
+      100% { transform: translateY(-10vh) scale(0.5); opacity: 0.4; }
+    }
+
+    /* About CSA block */
+    .para {
+      
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  max-width: 1280px;
+  margin: 10px;
+  text-align: center;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+      
+    
+
+    /* Flip card section */
+
+/* Container holding all flip cards */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap; /* allow wrapping onto new lines */
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Default (desktop) – 3 per row */
+.flip-card {
+  flex: 1 1 calc(33.333% - 20px); 
+  max-width: calc(33.333% - 20px);
+  height: 300px;
+}
+
+.card.is-flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+@media (max-width: 768px) {
+
+  .section-wrapper {
+    height: auto;
+    min-height: 300px;
+    padding: 30px 16px;
+  }
+
+  .hero-text {
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .card-section {
+    grid-template-columns: 1fr;
+    padding: 10px;
+    gap: 16px;
+  }
+
+  .card-inner {
+    height: 260px;
+  }
+
+  /* Disable hover flip on touch devices */
+  .card:hover .card-inner {
+    transform: none;
+  }
+
+  /* Visual hint that card is tappable */
+  .card {
+    cursor: pointer;
+  }
+
+  /* Smaller background elements */
+  .wave-bg div {
+    width: 24px;
+    height: 24px;
+    opacity: 0.35;
+  }
+}
+/* Mobile (1 per row, stacked) */
+@media (max-width: 600px) {
+  .flip-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+    .card-section {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 10px auto;
+      padding: 20px;
+      font-family:
+    }
+
+    .card {
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 350px; /* uniform height */
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+    }
+
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      backface-visibility: hidden;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* Front side */
+    .card-front {
+      background-color: #BA0606;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      position: relative;
+    }
+
+  .card-front img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) hue-rotate(-20deg) saturate(1.2);
+  z-index: 0;
+}
+
+  .card-front span {
+  position: relative;
+  z-index: 1;
+  padding: 6px 12px;               /* spacing around the text */
+  background-color: rgba(0, 0, 0, 0.45); /* semi-transparent gray/black */
+  border-radius: 6px;              /* optional rounded corners */
+  color: white;                    /* text color */
+  font-weight: bold;
+  text-align: center;
+}
+
+    /* Back side */
+    .card-back {
+      background: white;
+      color: #333;
+      transform: rotateY(180deg);
+      padding: 20px;
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: left;
+      overflow-y: auto; /* scroll if text too long */
+    }
+
+/* Floating circles background */
+.wave-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0; /* stays behind content */
+}
+
+.wave-bg div {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #F28705;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(50vh) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-10vh) scale(0.5);
+    opacity: 0.4;
+  }
+}
+
+  </style>
+
+
+  <div class="section-wrapper">
+
+    <!-- Floating background circles -->
+    <div class="wave-bg">
+      <div style="left:10%; animation-duration: 9s; animation-delay: 0s;"></div>
+      <div style="left:25%; animation-duration: 12s; animation-delay: 2s;"></div>
+      <div style="left:40%; animation-duration: 7s;  animation-delay: 1s;"></div>
+      <div style="left:60%; animation-duration: 10s; animation-delay: 3s;"></div>
+      <div style="left:75%; animation-duration: 14s; animation-delay: 4s;"></div>
+      <div style="left:90%; animation-duration: 11s; animation-delay: 5s;"></div>
+    </div>
+
+    <!-- About CSA -->
+    <div class="para">
+      <!--<h2>Colegio San Agustin Makati: Virtue and Science in Action</h2> -->
+      <p class="hero-text" align="left">
+        Colegio San Agustin Makati is a leading Catholic school that nurtures students in the Augustinian tradition. 
+        With a vibrant mix of local and international learners, CSA fosters global citizenship, friendship, 
+        and personal growth. Beyond academics, students thrive through dynamic programs in sports and the arts—living true to its motto: 
+        <strong>Virtue and Science</strong>.
+      </p>
+    </div>
+
+    <!-- Flip Cards -->
+    <div class="card-section">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="http://csa-v2-sandbox.csa.edu.ph/wp-content/uploads/2024/10/461764716_520128357305997_7098272951300715463_n-1.jpg" alt="CSA Life">
+            <span>Early Childhood<br>Education</span>
+          </div>
+          <div class="card-back">
+           The EARLY CHILDHOOD EDUCATION (ECE) unit of Colegio San Agustin Makati welcomes pupils from 2.5 to 5 years old. Our programs, namely: Nursery, Junior Kinder, and Senior Kinder, provide pupils with developmentally appropriate activities that encourage them to explore, create, collaborate, and at the same time, have fun, and make friends.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="http://csa-v2-sandbox.csa.edu.ph/wp-content/uploads/2025/08/DSC07690-scaled.jpg" alt="CSA Sports">
+            <span>Grade School</span>
+          </div>
+          <div class="card-back">
+            The Grade School Program is designed to provide the learners with a solid and well-rounded Christian doctrinal foundation and formation. The program also aims to lay the foundation for the Augustinians to become true servant leaders, the instruments of salvation for others and dedicated builders of the City of God.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="http://csa-v2-sandbox.csa.edu.ph/wp-content/uploads/2025/08/DSC09714-scaled.jpg" alt="CSA Global">
+            <span>Junior High School</span>
+          </div>
+          <div class="card-back">
+            The Junior High School (JHS) Program of CSA Makati is a PAASCU level III accredited program for Grades 7-10.
+It equips Augustinian learners with competencies necessary for subsequent learning leading to Senior High School and form them into Catholic servant-leaders in the tradition of Augustinian education.
+          </div>
+        </div>
+      </div>
+
+
+ <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="http://csa-v2-sandbox.csa.edu.ph/wp-content/uploads/2025/08/DSC09835-scaled.jpg" alt="CSA Global">
+            <span>Senior High School</span>
+          </div>
+          <div class="card-back">
+           The Senior High School (SHS) Program of CSA Makati develops learners in character and academic excellence. Our SHS graduates are well-rounded Catholic servant-leaders who are college-ready and future-proof.
+We offer the Academic Track that creates a pathway towards higher education. Learners explore possible college courses and future careers through various strands.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>

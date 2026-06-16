@@ -1,0 +1,101 @@
+<div class="org-chart">
+    <ul>
+        <!-- Top Level - Ms. Maria Lourdes Dejillas -->
+        <li class="top-box">
+            <div class="box">
+                <img src="https://csa.edu.ph/wp-content/uploads/2025/03/Ma-Lourdes-Dejillas.jpg" alt="Registrar" class="profile-pic">
+                <p><strong>Ms. Maria Lourdes Dejillas</strong><br>Registrar</p>
+            </div>
+        </li>
+
+        <!-- Assistants -->
+        <ul class="assistant-container">
+            <li class="assistant-box">
+                <div class="box">
+                    <img src="https://csa.edu.ph/wp-content/uploads/2025/03/2019-ANDRES-MAITA.png" alt="Registrar Liase" class="profile-pic">
+                    <p><strong> Ms. Maria Rita Andres</strong><br>Registrar Liase</p>
+                </div>
+            </li>
+            <li class="assistant-box">
+                <div class="box">
+                    <img src="https://csa.edu.ph/wp-content/uploads/2025/03/Daguno-Gleiza.jpg" alt="Records Evaluator" class="profile-pic">
+                    <p><strong>Ms. Gleiza Daguno</strong><br>Records Evaluator</p>
+                </div>
+            </li>
+            <li class="assistant-box">
+                <div class="box">
+                    <img src="https://csa.edu.ph/wp-content/uploads/2025/03/Catherine-Sunguad.jpg" alt="Foreign Services Unit In-charge" class="profile-pic">
+                    <p><strong>Ms. Catherine Sunguad</strong><br>Foreign Services Unit In-charge</p>
+                </div>
+            </li>
+        </ul>
+    </ul>
+</div>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .org-chart {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 30px;
+    }
+    .org-chart ul {
+        padding-top: 20px;
+        position: relative;
+    }
+    .org-chart li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        list-style-type: none;
+        position: relative;
+        padding: 10px;
+    }
+    .org-chart .box {
+        display: inline-block;
+        width: 250px; /* Ensures equal width */
+        height: 150px; /* Ensures equal height */
+        padding: 15px;
+        border: 2px solid #3a3a3a;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.2s ease-in-out;
+    }
+    .org-chart .box:hover {
+        transform: scale(1.05);
+    }
+    .profile-pic {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto 10px;
+        border: 3px solid #3a3a3a;
+    }
+    .assistant-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+        gap: 20px;
+    }
+    .assistant-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+</style>

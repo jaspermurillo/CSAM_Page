@@ -1,0 +1,127 @@
+
+  <style>
+    /* Basic body styling */
+    body {
+      font-family: sans-serif;
+      background: #111; /* Dark background outside the carousel */
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Outer carousel container */
+    .carousel-container {
+      width: 90%;                    /* 90% of the screen width */
+      max-width: 1200px;             /* But no more than 1200px */
+      height: 300px;                 /* Fixed height for the carousel box */
+      overflow: hidden;             /* Hides extra slides outside the view */
+      position: relative;
+      border-radius: 12px;           /* Rounded corners */
+      box-shadow: 0 0 20px rgba(255,255,255,0.1); /* Soft glow */
+      background: #000;              /* Solid black background */
+    }
+
+    /* Track that holds all slides side by side */
+    .carousel-track {
+      display: flex;                 /* Align slides horizontally */
+      transition: transform 0.6s ease; /* Smooth slide animation */
+      height: 100%;                  /* Same height as container */
+    }
+
+    /* Individual slide box */
+    .carousel-slide {
+      min-width: 25%;                /* Four slides per row (100 / 4) */
+      box-sizing: border-box;
+      padding: 5px;                  /* Space between images */
+      height: 100%;                  /* Fill container height */
+    }
+
+    /* Image inside each slide */
+    .carousel-slide img {
+      width: 100%;                   /* Fill the slide width */
+      height: 100%;                  /* Fill the slide height */
+      object-fit: cover;             /* Crop to cover area without stretch */
+      border-radius: 10px;           /* Rounded image corners */
+      display: block;
+    }
+
+    /* Responsive: Show 2 images per batch on tablets */
+    @media (max-width: 768px) {
+      .carousel-slide {
+        min-width: 50%;
+      }
+    }
+
+    /* Responsive: Show 1 image per batch on mobile */
+    @media (max-width: 480px) {
+      .carousel-slide {
+        min-width: 100%;
+      }
+    }
+  </style>
+
+  <!-- Carousel wrapper -->
+  <div class="carousel-container">
+    <!-- The moving track -->
+    <div class="carousel-track" id="carouselTrack">
+      <!-- Each of these is a slide with an image -->
+      <div class="carousel-slide">
+        <img src="https://csa.edu.ph/wp-content/uploads/2025/06/65-300x300.png" alt="1">
+      </div>
+      <div class="carousel-slide">
+        <img src="https://csa.edu.ph/wp-content/uploads/2025/06/64-300x300.png" alt="2">
+      </div>
+      <div class="carousel-slide">
+        <img src="https://csa.edu.ph/wp-content/uploads/2025/06/63-300x300.png" alt="3">
+      </div>
+      <div class="carousel-slide">
+        <img src="https://csa.edu.ph/wp-content/uploads/2025/06/62-300x300.png" alt="4">
+      </div>
+      <div class="carousel-slide">
+        <img src="https://csa.edu.ph/wp-content/uploads/2025/06/61-300x300.png" alt="5">
+      </div>
+      <div class="carousel-slide">
+        <img src="https://csa.edu.ph/wp-content/uploads/2025/06/60-300x300.png" alt="6">
+      </div>
+      <div class="carousel-slide">
+        <img src="https://csa.edu.ph/wp-content/uploads/2025/06/59-300x300.png" alt="7">
+      </div>
+      <div class="carousel-slide">
+        <img src="https://csa.edu.ph/wp-content/uploads/2025/06/58-300x300.png" alt="8">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Get the track element that will be moved
+    const track = document.getElementById("carouselTrack");
+
+    // Get all slide elements
+    const slides = document.querySelectorAll(".carousel-slide");
+
+    // Number of slides visible at once
+    const slidesToShow = 4;
+
+    // Start from the first group
+    let currentIndex = 0;
+
+    // Function to scroll to the next group
+    function autoScroll() {
+      const maxIndex = Math.ceil(slides.length / slidesToShow) - 1; // total groups
+
+      // Move to the next group or go back to the beginning
+      currentIndex = (currentIndex + 1) > maxIndex ? 0 : currentIndex + 1;
+
+      const slideWidth = slides[0].getBoundingClientRect().width; // width of one slide
+      const scrollAmount = slideWidth * slidesToShow * currentIndex; // total pixels to move
+
+      // Apply the transform to shift the track left
+      track.style.transform = `translateX(-${scrollAmount}px)`;
+    }
+
+    // Automatically run the scroll every 4 seconds
+    setInterval(autoScroll, 4000);
+  </script>
+
+
